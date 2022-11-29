@@ -56,9 +56,6 @@ app.get('/', (req, res) => {
   - We use this to create servers in this class.
 
 
-<<<<<<< HEAD
-## Running Application Logic In The Browser
-=======
 ## Running Application Logic In The Browser
 - Notice that the HTML code returned by the server does not contain the list of notes.
 - The `head` section contains a `script` tag.
@@ -95,4 +92,13 @@ xhttp.send();
 - The JS code downloads the JSON data with all the notes and forms a bullet-point list.
 
 
->>>>>>> bb245ed (Finished traditional web app notes)
+## Event Handlers and Callback Functions
+- Code to send request comes after the code that handles the response.
+- An `event handler` for event `onreadystatechange` is defined for `xhttp` object doing the request.
+  - When state of object changes, the browser calls the event handler function.
+  - Function code checks `readyState` equals 4, meaning operation complete and status code of 200.
+- Event handler functions are called `callback` functions.
+- App code does not invoke the function, but the runtime environment (browser) invokes the function at an appropriate time.
+  - i.e. when the event occurs.
+
+
