@@ -102,3 +102,8 @@ xhttp.send();
   - i.e. when the event occurs.
 
 
+## Document Object Model or DOM
+- HTML pages are implicit tree structures.
+- The `Document Object Model`, or `DOM`, is an `Application Programming Interface (API)` which allows modifications of web pages.
+
+
