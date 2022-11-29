@@ -210,3 +210,16 @@ form.onsubmit = function(e) {
 };
 ```
 
+## JavaScript Libraries
+- Sample application is done using [vanilla JavaScript](https://www.freecodecamp.org/news/is-vanilla-javascript-worth-learning-absolutely-c2c67140ac34/).
+  - Uses DOM and JS to manipulate structure of the pages.
+- Instead of using the DOM, there are some libraries with tools that are easier to work with than the DOM, like `jQuery`.
+  - Success because of cross-browser compatibility.
+- Rise of SPAs brought more modern ways of development than jQuery.
+  - First was `BackboneJS`.
+  - Then it was Google's `AngularJS`.
+  - Angular plummeted because Angular 2 is not backwards compatible with Angular 1.
+  - Facebook's `React` is the most popular now.
+  - `VueJS` is now capturing some interest.
+
+
