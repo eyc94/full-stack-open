@@ -107,3 +107,11 @@ xhttp.send();
 - The `Document Object Model`, or `DOM`, is an `Application Programming Interface (API)` which allows modifications of web pages.
 
 
+## Manipulating the Document-Object From Console
+- Topmost node of the DOM is called the `document` object.
+- Can use DOM-API.
+- Access `document` object by typing `document` in console tab.
+- Changes made with the DOM-API in the console are not permanent.
+  - Resets after refresh.
+
+
