@@ -1,0 +1,14 @@
+# Mac
+**/.DS_store
+
+# VSCode
+**/.vscode
+
+# npm
+**/node_modules
+
+# Misc
+**/.env
+
+# Testing
+**/coverage
