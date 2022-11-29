@@ -115,3 +115,24 @@ xhttp.send();
   - Resets after refresh.
 
 
+## CSS
+- The `head` element has a `link` tag.
+- This determines the browser must fetch a `CSS` style sheet from `main.css`.
+- CSS is a style sheet language used to determine the appearance of web pages.
+- Example:
+```css
+.container {
+  padding: 10px;
+  border: 1px solid;
+}
+
+.notes {
+  color: blue;
+}
+```
+- There are two class selectors.
+  - Starts with a period and contains the name of the class.
+- Classes are attributes.
+- CSS attributes can be examined on the elements tab of the console.
+
+
