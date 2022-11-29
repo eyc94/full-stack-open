@@ -136,3 +136,11 @@ xhttp.send();
 - CSS attributes can be examined on the elements tab of the console.
 
 
+## Loading A Page Containing JavaScript - Review
+1. The browser fetches HTML code with an HTTP GET request.
+2. Links in the HTML code cause the browser to fetch CSS style sheet `main.css`.
+3. Also fetches the JavaScript code `main.js`.
+4. The browser executes JS code and returns the JSON data for notes.
+5. When the data is fetched, browser executes and event handler to render the notes to the page using the DOM-API.
+
+
