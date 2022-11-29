@@ -234,3 +234,7 @@ form.onsubmit = function(e) {
 - We code the backend with JS using `Node.js` runtime environment.
 
 
+## JavaScript Fatigue
+- JavaScript is ever-changing.
+- This constant changing is hard to keep track of, so they coined it `JavaScript fatigue`.
+
