@@ -56,4 +56,43 @@ app.get('/', (req, res) => {
   - We use this to create servers in this class.
 
 
+<<<<<<< HEAD
 ## Running Application Logic In The Browser
+=======
+## Running Application Logic In The Browser
+- Notice that the HTML code returned by the server does not contain the list of notes.
+- The `head` section contains a `script` tag.
+  - This causes the browser to fetch a JavaScript file called `main.js`.
+- This is `main.js`:
+```js
+var xhttp = new XMLHttpRequest();
+
+xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    const data = JSON.parse(this.responseText);
+    console.log(data);
+
+    var ul = document.createElement('ul');
+    ul.setAttribute('class', 'notes');
+
+    data.forEach(function(note) {
+      var li = document.createElement('li');
+
+      ul.appendChild(li);
+      li.appendChild(document.createTextNode(note.content));
+    });
+
+    document.getElementsByClassName('notes').appendChild(ul);
+  }
+};
+
+xhttp.open('GET', '/data.json', true);
+xhttp.send();
+```
+- Browser executes this code after receiving this JS file.
+- The browser is told to make an HTTP GET request to the server's address `/data.json`.
+- This data is in the `JSON` format.
+- The JS code downloads the JSON data with all the notes and forms a bullet-point list.
+
+
+>>>>>>> bb245ed (Finished traditional web app notes)
