@@ -144,3 +144,28 @@ xhttp.send();
 5. When the data is fetched, browser executes and event handler to render the notes to the page using the DOM-API.
 
 
+## Forms and HTTP POST
+- The notes page has a form element.
+- When the button is clicked, the browser sends the input to the server.
+- Open the `Network` tab to see what the form is submitting.
+- Notice a POST request to the address `new_note`.
+- The form tag has attributes `action` and `method`.
+  - Defines that submitting the form is an HTTP POST request to the address `new_note`.
+- The code on the server making the POST request is:
+```js
+app.post('/new_note', (req, res) => {
+  notes.push({
+    content: req.body.note,
+    date: new Date(),
+  });
+
+  return res.redirect('/notes');
+});
+```
+- Data is sent as the body of the POST request.
+- Server can access the data by accessing `req.body` field of the request object `req`.
+- The server creates a new note object, and adds it to an array called `notes`.
+- The Note objects have two fields: `content` and `date`.
+- The server does not save new notes to a database, so the notes disappear when the server is restarted.
+
+
