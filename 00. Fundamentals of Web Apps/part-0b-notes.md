@@ -210,6 +210,7 @@ form.onsubmit = function(e) {
 };
 ```
 
+
 ## JavaScript Libraries
 - Sample application is done using [vanilla JavaScript](https://www.freecodecamp.org/news/is-vanilla-javascript-worth-learning-absolutely-c2c67140ac34/).
   - Uses DOM and JS to manipulate structure of the pages.
@@ -221,5 +222,15 @@ form.onsubmit = function(e) {
   - Angular plummeted because Angular 2 is not backwards compatible with Angular 1.
   - Facebook's `React` is the most popular now.
   - `VueJS` is now capturing some interest.
+
+
+## Full Stack Web Development
+- Web apps have two "layers": the browser is the top layer, and the server is the bottom one.
+- There is often a database layer below the server layer.
+- Think of the architecture of a web application as a *stack* of layers.
+- There is also talk about the frontend and backend.
+  - The browser is the frontend and JS that runs on the browser is frontend code.
+  - The server is the backend.
+- We code the backend with JS using `Node.js` runtime environment.
 
 
