@@ -177,3 +177,36 @@ app.post('/new_note', (req, res) => {
   - This is unacceptable now because of RESTful APIs.
 
 
+## Single Page App
+- In the example app, the logic is on the server.
+- The browser is just instructed to render the HTML.
+- The notes page does some work.
+  - Uses the JS code fetched from the server.
+  - The code fetches notes from the server as JSON data and adds HTML elements for displaying them using the DOM.
+- The recent trend is to use the `Single Page Application (SPA)` style.
+  - SPA-style websites don't fetch all their pages separately.
+  - It has one HTML page fetched from the server.
+  - The contents of this page is manipulated by JS code that runs in the browser.
+- In the SPA version of the notes app, the form tag has no `action` or `method` attributes.
+- The POST request to `new_note_spa` contains new note as JSON data.
+  - This has the content and date properties.
+- SPA version uses JS code it got from the server.
+- The code is:
+```js
+var form = document.getElementById('notes_form');
+
+form.onsubmit = function(e) {
+  e.preventDefault();
+
+  var note = {
+    content: e.target.elements[0].value,
+    date: new Date(),
+  };
+
+  notes.push(note);
+  e.target.elements[0].value = '';
+  redrawNotes();
+  sendToServer(note);
+};
+```
+
