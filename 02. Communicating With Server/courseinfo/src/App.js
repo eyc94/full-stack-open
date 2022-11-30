@@ -28,9 +28,13 @@ const Total = (props) => {
     sum += part.exercises;
   });
 
+  const total = props.course.parts.reduce(
+    (sum, currentValue) => sum + currentValue.exercises, 0
+  );
+
   return (
     <p>
-      Number of exercises {sum}
+      Number of exercises {total}
     </p>
   );
 };
