@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Weather from './Weather';
 
 const Button = ({ country }) => {
   const [show, setShow] = useState(false);
@@ -23,6 +24,7 @@ const Button = ({ country }) => {
           )}
         </ul>
         <img src={country.flags.png} />
+        <Weather country={country} />
       </>
     );
   }
