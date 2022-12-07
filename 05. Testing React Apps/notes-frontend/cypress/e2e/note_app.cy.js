@@ -45,24 +45,23 @@ describe('Note app', function() {
 
   describe('when logged in', function() {
     beforeEach(function() {
-      cy.contains('Login').click();
-      cy.get('#username').type('owner');
-      cy.get('#password').type('password');
-      cy.get('#login-button').click();
+      cy.login({ username: 'owner', password: 'password' });
     });
 
     it('a new note can be created', function() {
-      cy.contains('New Note').click();
-      cy.get('#new-note-input').type('a note created by cypress');
-      cy.contains('save').click();
+      cy.createNote({
+        content: 'a note created by cypress',
+        important: true,
+      });
       cy.contains('a note created by cypress');
     });
 
     describe('and a note exists', function() {
       beforeEach(function () {
-        cy.contains('New Note').click();
-        cy.get('#new-note-input').type('another note created by cypress');
-        cy.contains('save').click();
+        cy.createNote({
+          content: 'another note created by cypress',
+          important: false,
+        });
       });
 
       it('it can be made important', function() {
