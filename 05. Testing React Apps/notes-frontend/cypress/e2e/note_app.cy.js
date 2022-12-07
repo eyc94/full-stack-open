@@ -1,5 +1,12 @@
 describe('Note app', function() {
   beforeEach(function() {
+    cy.request('POST', 'http://localhost:3001/api/testing/reset');
+    const user = {
+      name: 'Smith',
+      username: 'owner',
+      password: 'password',
+    };
+    cy.request('POST', 'http://localhost:3001/api/users', user);
     cy.visit('http://localhost:3000');
   });
 
@@ -14,17 +21,17 @@ describe('Note app', function() {
 
   it('user can login', function() {
     cy.contains('Login').click();
-    cy.get('#username').type('echin');
+    cy.get('#username').type('owner');
     cy.get('#password').type('password');
     cy.get('#login-button').click();
 
-    cy.contains('Eric logged-in');
+    cy.contains('Smith logged-in');
   });
 
   describe('when logged in', function() {
     beforeEach(function() {
       cy.contains('Login').click();
-      cy.get('#username').type('echin');
+      cy.get('#username').type('owner');
       cy.get('#password').type('password');
       cy.get('#login-button').click();
     });
@@ -34,6 +41,23 @@ describe('Note app', function() {
       cy.get('#new-note-input').type('a note created by cypress');
       cy.contains('save').click();
       cy.contains('a note created by cypress');
+    });
+
+    describe('and a note exists', function() {
+      beforeEach(function () {
+        cy.contains('New Note').click();
+        cy.get('#new-note-input').type('another note created by cypress');
+        cy.contains('save').click();
+      });
+
+      it('it can be made important', function() {
+        cy.contains('another note created by cypress')
+          .contains('make important')
+          .click();
+
+        cy.contains('another note created by cypress')
+          .contains('make not important');
+      });
     });
   });
 });
