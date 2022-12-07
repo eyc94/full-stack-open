@@ -18,7 +18,6 @@ test('renders content', () => {
   expect(element).toBeDefined();
 
   // screen.debug(element);
-  expect(element).toBeDefined();
 
   // const { container } = render(<Note note={note} />);
 
@@ -43,4 +42,16 @@ test('clicking the button calls event handler once', async () => {
   await user.click(button);
 
   expect(mockHandler.mock.calls).toHaveLength(1);
+});
+
+test('does not render this', () => {
+  const note = {
+    content: 'This is a reminder',
+    important: true,
+  };
+
+  render(<Note note={note} />);
+
+  const element = screen.queryByText('do not want this thing to be rendered');
+  expect(element).toBeNull();
 });
