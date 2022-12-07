@@ -20,4 +20,20 @@ describe('Note app', function() {
 
     cy.contains('Eric logged-in');
   });
+
+  describe('when logged in', function() {
+    beforeEach(function() {
+      cy.contains('Login').click();
+      cy.get('#username').type('echin');
+      cy.get('#password').type('password');
+      cy.get('#login-button').click();
+    });
+
+    it('a new note can be created', function() {
+      cy.contains('New Note').click();
+      cy.get('#new-note-input').type('a note created by cypress');
+      cy.contains('save').click();
+      cy.contains('a note created by cypress');
+    });
+  });
 });
