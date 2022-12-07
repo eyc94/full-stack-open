@@ -42,13 +42,13 @@ const App = () => {
       .then(returnedNote => {
         setNotes(notes.map(note => note.id !== id ? note : returnedNote));
       })
-      .catch(error => {
+      .catch(() => {
         setErrorMessage(`The note ${note.content} was already deleted from the server`);
         setTimeout(() => {
           setErrorMessage(null);
         }, 5000);
         setNotes(notes.filter(n => n.id !== id));
-      })
+      });
   };
 
   const addNote = (noteObject) => {
@@ -110,7 +110,7 @@ const App = () => {
     <Togglable buttonLabel='new note' ref={noteFormRef}>
       <NoteForm createNote={addNote} />
     </Togglable>
-  )
+  );
 
   return (
     <div>
