@@ -1,16 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = 'ALL';
+const initialState = '';
 
 const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
-    filterAnecdotes(state, action) {
-      const filterValue = action.payload;
-      return state.map(anecdote => anecdote.content.toLowerCase().includes(filterValue.toLowerCase()));
+    setFilter(state, action) {
+      return action.payload;
     },
   },
 });
 
+export const { setFilter } = filterSlice.actions;
 export default filterSlice.reducer;
