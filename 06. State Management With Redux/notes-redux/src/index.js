@@ -19,10 +19,9 @@ console.log(store.getState());
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <Provider store={store}>
-  //   <App />
-  // </Provider>
-  <div />
+  <Provider store={store}>
+    <App />
+  </Provider>
 );
 
 store.subscribe(() => console.log(store.getState()));
