@@ -10,6 +10,7 @@ import {
   useNavigate,
   useMatch,
 } from 'react-router-dom';
+import { Container, Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
 
 const Home = () => (
   <div>
@@ -31,12 +32,25 @@ const Note = ({ note }) => {
 const Notes = ({ notes }) => (
   <div>
     <h2>Notes</h2>
+
+    <TableContainer component={Paper}>
+      <Table>
+        <TableBody>
+          {notes.map(note => (
+            <TableRow key={note.id}>
+              <TableCell>
+                <Link to={`/notes/${note.id}`}>{note.content}</Link>
+              </TableCell>
+              <TableCell>
+                {note.user}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
     <ul>
-      {notes.map(note =>
-        <li key={note.id}>
-          <Link to={`/notes/${note.id}`}>{note.content}</Link>
-        </li>
-      )}
+
     </ul>
   </div>
 );
@@ -115,7 +129,7 @@ const App = () => {
     : null;
 
   return (
-    <div>
+    <Container>
       <div>
         <Link style={padding} to='/'>Home</Link>
         <Link style={padding} to='/notes'>Notes</Link>
@@ -137,7 +151,7 @@ const App = () => {
         <br />
         <em>Note App EC 2022</em>
       </footer>
-    </div>
+    </Container>
   );
 };
 
