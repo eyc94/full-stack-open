@@ -130,11 +130,11 @@ const App = () => {
           <Route path='/login' element={<Login onLogin={login} />} />
           <Route path='/' element={<Home />} />
         </Routes>
-
-        <div>
-          <i>Note App EC 2022</i>
-        </div>
       </Router>
+      <footer>
+        <br />
+        <em>Note App EC 2022</em>
+      </footer>
     </div>
   );
 };
