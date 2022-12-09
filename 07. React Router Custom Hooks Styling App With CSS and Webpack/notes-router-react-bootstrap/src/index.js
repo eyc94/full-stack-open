@@ -10,7 +10,7 @@ import {
   useNavigate,
   useMatch,
 } from 'react-router-dom';
-import { Table, Button, Form, Alert } from 'react-bootstrap';
+import { Table, Button, Form, Alert, Navbar, Nav } from 'react-bootstrap';
 
 const Home = () => (
   <div>
@@ -136,15 +136,30 @@ const App = () => {
           {message}
         </Alert>
       )}
-      <div>
-        <Link style={padding} to='/'>Home</Link>
-        <Link style={padding} to='/notes'>Notes</Link>
-        <Link style={padding} to='/users'>Users</Link>
-        {user
-          ? <em>{user} logged in</em>
-          : <Link style={padding} to='/login'>Login</Link>
-        }
-      </div>
+
+
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className='me-auto'>
+            <Nav.Link href="#" as="span">
+              <Link style={padding} to='/'>Home</Link>
+            </Nav.Link>
+            <Nav.Link href="#" as="span">
+              <Link style={padding} to='/notes'>Notes</Link>
+            </Nav.Link>
+            <Nav.Link href="#" as="span">
+              <Link style={padding} to='/users'>Users</Link>
+            </Nav.Link>
+            <Nav.Link href="#" as="span">
+              {user
+                ? <em>{user} logged in</em>
+                : <Link style={padding} to='/login'>Login</Link>
+              }
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
 
       <Routes>
         <Route path='/notes/:id' element={<Note note={note} />} />
