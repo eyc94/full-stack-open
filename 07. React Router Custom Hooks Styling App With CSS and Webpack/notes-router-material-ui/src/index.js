@@ -12,15 +12,18 @@ import {
 } from 'react-router-dom';
 import {
   Alert,
+  AppBar,
   Button,
   Container,
+  IconButton,
   Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableRow,
-  TextField
+  TextField,
+  Toolbar
 } from '@mui/material';
 
 const Home = () => (
@@ -156,15 +159,29 @@ const App = () => {
             {message}
           </Alert>
         )}
-
-        <Link style={padding} to='/'>Home</Link>
-        <Link style={padding} to='/notes'>Notes</Link>
-        <Link style={padding} to='/users'>Users</Link>
-        {user
-          ? <em>{user} logged in</em>
-          : <Link style={padding} to='/login'>Login</Link>
-        }
       </div>
+
+      <AppBar position='static'>
+        <Toolbar>
+          <IconButton edge='start' color='inherit' aria-label='menu'>
+          </IconButton>
+          <Button color='inherit' component={Link} to='/'>
+            Home
+          </Button>
+          <Button color='inherit' component={Link} to='/notes'>
+            Notes
+          </Button>
+          <Button color='inherit' component={Link} to='/users'>
+            Users
+          </Button>
+          {user
+            ? <em>{user} logged in</em>
+            : <Button color='inherit' component={Link} to='/login'>
+                Login
+              </Button>
+          }
+        </Toolbar>
+      </AppBar>
 
       <Routes>
         <Route path='/notes/:id' element={<Note note={note} />} />
