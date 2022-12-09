@@ -1,4 +1,10 @@
 import { useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+} from 'react-router-dom';
 
 const Menu = () => {
   const padding = {
@@ -7,14 +13,14 @@ const Menu = () => {
 
   return (
     <div>
-      <a href='#' style={padding}>Anecdotes</a>
-      <a href='#' style={padding}>Create New</a>
-      <a href='#' style={padding}>About</a>
+      <Link style={padding} to='/'>Anecdotes</Link>
+      <Link style={padding} to='/create'>Create New</Link>
+      <Link style={padding} to='/about'>About</Link>
     </div>
   );
 };
 
-const AnecdoteList = ({ anecdotes }) => {
+const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
     <ul>
@@ -23,9 +29,9 @@ const AnecdoteList = ({ anecdotes }) => {
       )}
     </ul>
   </div>
-};
+);
 
-const About = () => {
+const About = () => (
   <div>
     <h2>About Anecdotes App</h2>
     <p>According to Wikipedia:</p>
@@ -37,11 +43,13 @@ const About = () => {
 
     <p>Software engineering is full of excellent anecdotes, at this app you can find the best and add more.</p>
   </div>
-};
+);
 
 const Footer = () => (
   <div>
     Anecdote app for <a href='https://fullstackopen.com/'>Full Stack Open</a>.
+    
+    See <a href='https://github.com/eyc94/full-stack-open/tree/main/07.%20React%20Router%20Custom%20Hooks%20Styling%20App%20With%20CSS%20and%20Webpack/anecdotes-router'>Link</a> for the source code.
   </div>
 );
 
@@ -121,14 +129,18 @@ const App = () => {
   };
 
   return (
-    <div>
+    <Router>
       <h1>Software Anecdotes</h1>
       <Menu />
-      <AnecdoteList anecdotes={anecdotes} />
-      <About />
-      <CreateNew addNew={addNew} />
+      
+      <Routes>
+        <Route path='/about' element={<About />} />
+        <Route path='/create' element={<CreateNew addNew={addNew} /> } />
+        <Route path='/' element={<AnecdoteList anecdotes={anecdotes} />} />
+      </Routes>
+
       <Footer />
-    </div>
+    </Router>
   );
 };
 
