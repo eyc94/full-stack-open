@@ -10,7 +10,17 @@ import {
   useNavigate,
   useMatch,
 } from 'react-router-dom';
-import { Container, Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
+import {
+  Button,
+  Container,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  TextField
+} from '@mui/material';
 
 const Home = () => (
   <div>
@@ -80,12 +90,16 @@ const Login = (props) => {
       <h2>Login</h2>
       <form onSubmit={onSubmit}>
         <div>
-          Username: <input />
+          <TextField label='username' />
         </div>
         <div>
-          Password: <input type='password' />
+          <TextField label='password' type='password' />
         </div>
-        <button type='submit'>Login</button>
+        <div>
+          <Button variant='contained' color='primary' type='submit'>
+            Login
+          </Button>
+        </div>
       </form>
     </div>
   );
