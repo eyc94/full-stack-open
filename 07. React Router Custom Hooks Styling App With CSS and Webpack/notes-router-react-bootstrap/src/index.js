@@ -10,7 +10,7 @@ import {
   useNavigate,
   useMatch,
 } from 'react-router-dom';
-import Table from 'react-bootstrap/Table';
+import { Table, Button, Form } from 'react-bootstrap';
 
 const Home = () => (
   <div>
@@ -74,15 +74,15 @@ const Login = (props) => {
   return (
     <div>
       <h2>Login</h2>
-      <form onSubmit={onSubmit}>
-        <div>
-          Username: <input />
-        </div>
-        <div>
-          Password: <input type='password' />
-        </div>
-        <button type='submit'>Login</button>
-      </form>
+      <Form onSubmit={onSubmit}>
+        <Form.Group>
+          <Form.Label>Username:</Form.Label>
+          <Form.Control type='text' name='username' />
+          <Form.Label>Password:</Form.Label>
+          <Form.Control type='password' />
+          <Button type='submit' variant='primary'>Login</Button>
+        </Form.Group>
+      </Form>
     </div>
   );
 };
