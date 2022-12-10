@@ -34,7 +34,7 @@ const Authors = (props) => {
           ))}
         </tbody>
       </table>
-      <BornForm />
+      <BornForm authorNames={authors.map(a => a.name)} />
     </div>
   );
 };
