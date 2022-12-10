@@ -71,7 +71,7 @@ let books = [
     genres: ['classic', 'crime']
   },
   {
-    title: 'The Demon ',
+    title: 'The Demon',
     published: 1872,
     author: 'Fyodor Dostoevsky',
     id: 'afa5de04-344d-11e9-a414-719c6709cf3e',
@@ -80,12 +80,30 @@ let books = [
 ];
 
 const typeDefs = `#graphql
+  type Author {
+    name: String!
+    born: Int
+    id: ID!
+  }
+
+  type Book {
+    title: String!
+    published: Int!
+    author: Author!
+    genres: [String!]!
+    id: ID!
+  }
+
   type Query {
+    bookCount: Int!
+    authorCount: Int!
   }
 `;
 
 const resolvers = {
   Query: {
+    authorCount: () => authors.length,
+    bookCount: () => books.length,
   },
 };
 
