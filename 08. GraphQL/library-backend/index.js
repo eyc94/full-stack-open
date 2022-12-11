@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { ApolloServer } = require('@apollo/server');
 const { startStandaloneServer } = require('@apollo/server/standalone');
-const { v1: uuid } = require('uuid');
+const { GraphQLError } = require('graphql');
 const mongoose = require('mongoose');
 const Author = require('./models/author');
 const Book = require('./models/book');
@@ -169,24 +169,53 @@ const resolvers = {
 
       if (!author) {
         author = new Author({ name: args.author });
-        await author.save();
+
+        try {
+          await author.save();
+        } catch (error) {
+          throw new GraphQLError(error.message, {
+            extensions: {
+              invalidArgs: args,
+            },
+          });
+        }
       }
 
       const book = new Book({ ...args, author: author.id });
-      return book.save();
+
+      try {
+        await book.save();
+      } catch (error) {
+        throw new GraphQLError(error.message, {
+          extensions: {
+            invalidArgs: args,
+          },
+        });
+      }
     },
     editAuthor: async (root, args) => {
       const author = await Author.findOne({ name: args.name });
 
       if (!author) return null;
 
-      const updatedAuthor = await Author.findOneAndUpdate(
-        { name: args.name },
-        { born: args.setBornTo },
-        { new: true },
-      );
+      author.born = args.setBornTo;
 
-      return updatedAuthor;
+      try {
+        author.save();
+      } catch (error) {
+        throw new GraphQLError(error.message, {
+          extensions: {
+            invalidArgs: args,
+          },
+        });
+      }
+      return author;
+
+      // const updatedAuthor = await Author.findOneAndUpdate(
+      //   { name: args.name },
+      //   { born: args.setBornTo },
+      //   { new: true },
+      // );
     },
   },
 };
