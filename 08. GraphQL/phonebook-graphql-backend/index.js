@@ -95,6 +95,9 @@ const typeDefs = `#graphql
       username: String!
       password: String!
     ): Token
+    addAsFriend(
+      name: String!
+    ): User
   }
 `;
 
@@ -121,11 +124,17 @@ const resolvers = {
     },
   },
   Mutation: {
-    addPerson: async (root, args) => {
+    addPerson: async (root, args, context) => {
       const person = new Person({ ...args });
+      const currentUser = context.currentUser;
+      if (!currentUser) {
+        throw new GraphQLError('Not authenticated');
+      }
 
       try {
         await person.save();
+        currentUser.friends = currentUser.friends.concat(person);
+        await currentUser.save();
       } catch (error) {
         throw new GraphQLError(error.message, {
           extensions: {
@@ -162,7 +171,7 @@ const resolvers = {
               invalidArgs: args,
             },
           });
-        })
+        });
     },
     login: async (root, args) => {
       const user = await User.findOne({ username: args.username });
@@ -178,22 +187,45 @@ const resolvers = {
 
       return { value: jwt.sign(userForToken, JWT_SECRET) };
     },
+    addAsFriend: async (root, args, { currentUser }) => {
+      const isFriend = person => currentUser.friends.map(f => f._id.toString()).includes(person._id.toString());
+
+      if (!currentUser) {
+        throw new GraphQLError('Not authenticated');
+      }
+
+      const person = await Person.findOne({ name: args.name });
+      if (!isFriend(person)) {
+        currentUser.friends = currentUser.friends.concat(person);
+      }
+
+      await currentUser.save();
+      return currentUser;
+    },
   },
 };
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: async ({ req }) => {
-    const auth = req ? req.headers.authorization : null;
-    if (auth && auth.toLowerCase().startsWith('bearer ')) {
-      const decodedToken = jwt.verify(auth.substring(7), JWT_SECRET);
-      const currentUser = await User.findById(decodedToken.id).populate('friends');
-      return { currentUser };
-    }
-  },
 });
 
-startStandaloneServer(server, { listen: { port: 4000 }}).then(({ url }) => {
-  console.log(`Server ready at ${url}`);
-});
+startStandaloneServer(
+  server,
+  {
+    context: async ({ req }) => {
+      const auth = req ? req.headers.authorization : null;
+      console.log('auth:', auth);
+      if (auth && auth.toLowerCase().startsWith('bearer ')) {
+        const decodedToken = jwt.verify(auth.substring(7), JWT_SECRET);
+        console.log('decoding token!');
+        const currentUser = await User.findById(decodedToken.id).populate('friends');
+        return { currentUser };
+      }
+    },
+  },
+  { listen: { port: 4000 }})
+  .then(({ url }) => {
+    console.log(`Server ready at ${url}`);
+  }
+);
