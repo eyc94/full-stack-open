@@ -32,7 +32,6 @@ const App = () => {
   if (!token) {
     return (
       <div>
-        {token ? <div>hi</div> : <div>no hi</div>}
         <Notify errorMessage={errorMessage} />
         <h2>Login</h2>
         <LoginForm
