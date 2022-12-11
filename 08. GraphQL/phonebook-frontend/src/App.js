@@ -6,6 +6,18 @@ import PhoneForm from './components/PhoneForm';
 import LoginForm from './components/LoginForm';
 import { ALL_PERSONS } from './queries';
 
+const Notify = ({ errorMessage }) => {
+  if (!errorMessage) {
+    return null;
+  }
+
+  return (
+    <div style={{ color: 'red' }}>
+      {errorMessage}
+    </div>
+  );
+};
+
 const App = () => {
   const [token, setToken] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -31,14 +43,14 @@ const App = () => {
 
   if (!token) {
     return (
-      <div>
+      <>
         <Notify errorMessage={errorMessage} />
         <h2>Login</h2>
         <LoginForm
           setToken={setToken}
           setError={notify}
         />
-      </div>
+      </>
     );
   }
 
@@ -49,18 +61,6 @@ const App = () => {
       <Persons persons={result.data.allPersons} />
       <PersonForm setError={notify} />
       <PhoneForm setError={notify} />
-    </div>
-  );
-};
-
-const Notify = ({ errorMessage }) => {
-  if (!errorMessage) {
-    return null;
-  }
-
-  return (
-    <div style={{ color: 'red' }}>
-      {errorMessage}
     </div>
   );
 };
