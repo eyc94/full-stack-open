@@ -1,6 +1,18 @@
+require('dotenv').config();
 const { ApolloServer } = require('@apollo/server');
 const { startStandaloneServer } = require('@apollo/server/standalone');
 const { v1: uuid } = require('uuid');
+const mongoose = require('mongoose');
+const Author = require('./models/author');
+const Book = require('./models/book');
+
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log('Connected to MongoDB!');
+  })
+  .catch((error) => {
+    console.log('Error connecting to MongoDB:', error.message);
+  });
 
 let authors = [
   {
@@ -91,7 +103,7 @@ const typeDefs = `#graphql
   type Book {
     title: String!
     published: Int!
-    author: String!
+    author: Author!
     genres: [String!]!
     id: ID!
   }
