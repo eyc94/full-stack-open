@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { ApolloServer } = require('@apollo/server');
 const { GraphQLError } = require('graphql');
 const { startStandaloneServer } = require('@apollo/server/standalone');
@@ -8,7 +9,7 @@ const jwt = require('jsonwebtoken');
 
 const JWT_SECRET = 'SECRET';
 
-const MONGODB_URI = 'mongodb+srv://databaseurlhere';
+const MONGODB_URI = process.env.MONGODB_URI;
 
 mongoose.connect(MONGODB_URI)
   .then(() => {
