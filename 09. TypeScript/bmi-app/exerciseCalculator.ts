@@ -27,14 +27,18 @@ interface Result {
   average: number;
 };
 
-const calculateExercises = (dailyhours: Array<number>, targetAmount: number): Result => {
+const calculateExercises = (dailyHours: Array<number>, targetAmount: number): Result => {
+  if (dailyHours.length === 0) {
+    throw new Error('Daily hours array is empty');
+  }
+
   let daysTrained: number = 0;
   let sumOfHoursTrained: number = 0;
   let targetReached: boolean = false;
   let exerciseRating: number = 1;
   let exerciseRatingDescription: string = '';
 
-  dailyhours.forEach(dayHour => {
+  dailyHours.forEach(dayHour => {
     if (dayHour > 0) {
       daysTrained++;
     }
@@ -42,7 +46,7 @@ const calculateExercises = (dailyhours: Array<number>, targetAmount: number): Re
     sumOfHoursTrained += dayHour;
   });
 
-  const averageHoursTrained = sumOfHoursTrained / dailyhours.length;
+  const averageHoursTrained = sumOfHoursTrained / dailyHours.length;
 
   if (averageHoursTrained < targetAmount) {
     exerciseRating = 1;
@@ -58,7 +62,7 @@ const calculateExercises = (dailyhours: Array<number>, targetAmount: number): Re
   }
 
   return {
-    periodLength: dailyhours.length, // done
+    periodLength: dailyHours.length, // done
     trainingDays: daysTrained, // done.
     success: targetReached, // done.
     rating: exerciseRating, // done.
@@ -68,4 +72,26 @@ const calculateExercises = (dailyhours: Array<number>, targetAmount: number): Re
   };
 };
 
-console.log(calculateExercises([1, 0, 2, 4.5, 0, 3, 1, 0, 4], 2));
+
+
+try {
+  if (process.argv.length < 3) {
+    throw new Error('Missing target and daily exercise hours');
+  } else if (process.argv.length < 4) {
+    throw new Error('Missing daily exercise hours');
+  }
+  const targetAmount: number = Number(process.argv[2]);
+  const dailyHours: Array<number> = [];
+  for (let i = 3; i < process.argv.length; i++) {
+    dailyHours.push(Number(process.argv[i]));
+  }
+  console.log(calculateExercises(dailyHours, targetAmount));
+} catch (error: unknown) {
+  let errorMessage: string = 'Something went wrong.';
+  if (error instanceof Error) {
+    errorMessage += ' Error: ' + error.message;
+  }
+  console.log(errorMessage);
+};
+
+// console.log(calculateExercises([1, 0, 2, 4.5, 0, 3, 1, 0, 4], 2));
