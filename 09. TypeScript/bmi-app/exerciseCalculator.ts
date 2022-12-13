@@ -27,7 +27,7 @@ interface Result {
   average: number;
 };
 
-const calculateExercises = (dailyHours: Array<number>, targetAmount: number): Result => {
+export const calculateExercises = (dailyHours: Array<number>, targetAmount: number): Result => {
   if (dailyHours.length === 0) {
     throw new Error('Daily hours array is empty');
   }
@@ -74,24 +74,24 @@ const calculateExercises = (dailyHours: Array<number>, targetAmount: number): Re
 
 
 
-try {
-  if (process.argv.length < 3) {
-    throw new Error('Missing target and daily exercise hours');
-  } else if (process.argv.length < 4) {
-    throw new Error('Missing daily exercise hours');
-  }
-  const targetAmount: number = Number(process.argv[2]);
-  const dailyHours: Array<number> = [];
-  for (let i = 3; i < process.argv.length; i++) {
-    dailyHours.push(Number(process.argv[i]));
-  }
-  console.log(calculateExercises(dailyHours, targetAmount));
-} catch (error: unknown) {
-  let errorMessage: string = 'Something went wrong.';
-  if (error instanceof Error) {
-    errorMessage += ' Error: ' + error.message;
-  }
-  console.log(errorMessage);
-};
+// try {
+//   if (process.argv.length < 3) {
+//     throw new Error('Missing target and daily exercise hours');
+//   } else if (process.argv.length < 4) {
+//     throw new Error('Missing daily exercise hours');
+//   }
+//   const targetAmount: number = Number(process.argv[2]);
+//   const dailyHours: Array<number> = [];
+//   for (let i = 3; i < process.argv.length; i++) {
+//     dailyHours.push(Number(process.argv[i]));
+//   }
+//   console.log(calculateExercises(dailyHours, targetAmount));
+// } catch (error: unknown) {
+//   let errorMessage: string = 'Something went wrong.';
+//   if (error instanceof Error) {
+//     errorMessage += ' Error: ' + error.message;
+//   }
+//   console.log(errorMessage);
+// };
 
 // console.log(calculateExercises([1, 0, 2, 4.5, 0, 3, 1, 0, 4], 2));
