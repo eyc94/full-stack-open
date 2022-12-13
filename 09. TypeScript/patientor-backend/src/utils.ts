@@ -1,4 +1,4 @@
-import { Gender, NewPatient } from './types';
+import { Entry, Gender, NewPatient } from './types';
 
 const isString = (text: unknown): text is string => {
   return typeof text === 'string' || text instanceof String;
@@ -9,6 +9,15 @@ const parseEntry = (value: unknown): string => {
     throw new Error('Incorrect or missing value: ' + value);
   }
   return value;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const parseEntries = (entries: any): Entry[] => {
+  if (!entries) {
+    throw new Error('Incorrect or missing gender: ' + entries);
+  }
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  return entries;
 };
 
 const isDate = (date: string): boolean => {
@@ -43,6 +52,7 @@ const toNewPatient = (object: any): NewPatient => {
     dateOfBirth: parseDate(object.dateOfBirth),
     occupation: parseEntry(object.occupation),
     gender: parseGender(object.gender),
+    entries: parseEntries(object.entries),
   };
   return newEntry;
 };
