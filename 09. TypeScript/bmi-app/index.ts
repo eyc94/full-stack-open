@@ -10,7 +10,7 @@ app.get('/bmi', (req, res) => {
   const { height, weight } = req.query;
   const isValidParameters: boolean = !isNaN(Number(height)) && !isNaN(Number(weight));
 
-  const bmi = calculateBmi(Number(height), Number(weight));
+  const bmi: string = calculateBmi(Number(height), Number(weight));
 
   if (!height || !weight || !isValidParameters) {
     res.status(400).send({
@@ -25,7 +25,7 @@ app.get('/bmi', (req, res) => {
   });
 });
 
-const PORT = 3003;
+const PORT: number = 3003;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
